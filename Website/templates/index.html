@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mi Biblioteca PDF</title>
+</head>
+<body>
+    <h1>Sube un nuevo libro</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        Título: <input type="text" name="title" required><br>
+        Portada: <input type="file" name="cover" accept="image/*" required><br>
+        Archivo PDF: <input type="file" name="pdf" accept="application/pdf" required><br>
+        <button type="submit">Subir libro</button>
+    </form>
+
+    <hr>
+
+    <h2>Libros disponibles</h2>
+    <div>
+        {% for book in books %}
+            <div style="margin-bottom: 20px;">
+                <img src="{{ url_for('static', filename='covers/' + book.cover) }}" width="100"><br>
+                <strong>{{ book.title }}</strong><br>
+                <a href="{{ url_for('download_pdf', filename=book.pdf) }}" target="_blank">Ver/Descargar PDF</a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
